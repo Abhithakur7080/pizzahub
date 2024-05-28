@@ -7,29 +7,55 @@ body {
 }
 nav li:last-child a {
   background: $primary;
-  &:hover{
+  &:hover {
     background: $primary-hover;
   }
 }
 nav li a {
-    transition: $smooth;
+  transition: $smooth;
   &:hover {
     color: $primary;
   }
 }
-section.hero{
-    background: $secondary;
-}
-.size{
-    background: $secondary;
-}
-.add-to-cart{
-    border: 2px solid $primary;
+.btn-primary {
+  background: $primary;
+  border: 2px solid $pure;
+
+  color: $pure;
+  transition: $smooth;
+  &:hover {
+    border-color: $primary;
     color: $primary;
-    transition: $smooth;
+    background-color: $pure;
+  }
+}
+
+.size {
+  background: $secondary;
+}
+.add-to-cart {
+  border: 2px solid $primary;
+  color: $primary;
+  transition: $smooth;
+  &:hover {
+    background: $primary;
+    border-color: $pure;
+    color: $pure;
+  }
+}
+section.cart{
+  background: $secondary;
+  .amount{
+    color: $primary;
+  }
+}
+section.login{
+  background: $secondary;
+  min-height: calc(100vh - 86px);
+  a{
+    color: $primary;
     &:hover{
-        background: $primary;
-        border-color: $pure;
-        color: $pure;
+      color: $primary-hover;
     }
+  }
 }

@@ -18,8 +18,16 @@ nav li a:hover {
   color: #fe5f1e;
 }
 
-section.hero {
-  background: #f8f8f8;
+.btn-primary {
+  background: #fe5f1e;
+  border: 2px solid #fff;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+.btn-primary:hover {
+  border-color: #fe5f1e;
+  color: #fe5f1e;
+  background-color: #fff;
 }
 
 .size {
@@ -35,4 +43,22 @@ section.hero {
   background: #fe5f1e;
   border-color: #fff;
   color: #fff;
+}
+
+section.cart {
+  background: #f8f8f8;
+}
+section.cart .amount {
+  color: #fe5f1e;
+}
+
+section.login {
+  background: #f8f8f8;
+  min-height: calc(100vh - 86px);
+}
+section.login a {
+  color: #fe5f1e;
+}
+section.login a:hover {
+  color: #b23301;
 }
