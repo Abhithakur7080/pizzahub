@@ -24,9 +24,10 @@
           <li class="ml-6"><a href="/register">Register</a></li>
           <li class="ml-6"><a href="/login">Login</a></li>
           <li class="ml-6">
-            <a href="#" class="inline-block px-4 py-2 rounded-full"
-              ><img src="/img/cart.png" alt="cart"
-            /></a>
+            <a href="/cart" class="flex items-center px-4 py-2 rounded-full">
+              <span id="cartCounter" class="text-white font-bold pr-2"><%= session.cart ? session.cart.totalQty : "0"%></span>
+              <img src="/img/cart.png" alt="cart" />
+            </a>
           </li>
         </ul>
       </div>
