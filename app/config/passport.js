@@ -10,11 +10,6 @@ const passportConfig = (passport) => {
       { usernameField: "email" },
       async (email, password, done) => {
         //login
-        // Validate request
-        // if (!email || !password) {
-        //   req.flash("email", email);
-        //   return done(null, false, {message: "All fields are required"});
-        // }
         //check if email exists
         const user = await User.findOne({ email: email });
         if (!user) {

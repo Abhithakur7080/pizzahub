@@ -8,6 +8,13 @@ const authControllers = () => {
       res.render("auth/login");
     },
     postlogin(req, res, next) {
+      const { email, password } = req.body;
+      // Validate request
+      if (!email || !password) {
+        req.flash("error", "All fields are required");
+        req.flash("email", email);
+        return res.redirect("/login");
+      }
       passport.authenticate("local", (err, user, info) => {
         if (err) {
           req.flash("error", info.message);
