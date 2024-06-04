@@ -14,7 +14,9 @@
           <span class="uppercase"><%= pizza.item.size %></span>
         </div>
         <span class="flex-1"><%= pizza.qty %> Pcs</span>
-        <span class="font-bold text-lg">&#8377;<%= pizza.item.price * pizza.qty %></span>
+        <span class="font-bold text-lg"
+          >&#8377;<%= pizza.item.price * pizza.qty %></span
+        >
       </div>
       <% } %>
     </div>
@@ -22,16 +24,21 @@
     <div class="text-right py-4">
       <div>
         <span class="text-lg font-bold">Total Amount:</span>
-        <span class="amount text-2xl font-bold ml-2">&#8377;<%=session.cart.totalPrices%></span>
+        <span class="amount text-2xl font-bold ml-2"
+          >&#8377;<%=session.cart.totalPrices%></span
+        >
       </div>
+      <% if(user) { %>
       <div>
-        <form action="" class="mt-12">
+        <form action="/orders" method="POST" class="mt-12">
           <input
+          name="phone"
             class="border border-gray-400 p-2 w-1/2 mb-4"
             type="text"
             placeholder="Phone Number"
           />
           <input
+          name="address"
             class="border border-gray-400 p-2 w-1/2"
             type="text"
             placeholder="Address"
@@ -45,11 +52,17 @@
           </div>
         </form>
       </div>
-      <!-- <a href="" class="inline-block cursor-pointer btn-primary px-6 py-2 rounded-full text-white font-bold mt-6">Login to continue</a> -->
+      <% } else { %>
+      <a
+        href="/login"
+        class="inline-block cursor-pointer btn-primary px-6 py-2 rounded-full text-white font-bold mt-6"
+        >Login to continue</a
+      >
+      <% } %>
     </div>
   </div>
   <% } else { %>
-      <div class="empty-cart py-16">
+  <div class="empty-cart py-16">
     <div class="container mx-auto text-center">
       <h1 class="text-3xl font-bold mb-2">Cart Empty 🙁</h1>
       <p class="text-gray-500 text-lg mb-12">
