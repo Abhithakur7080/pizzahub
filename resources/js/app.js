@@ -40,43 +40,67 @@ if (alertMsg) {
     alertMsg.remove();
   }, 2000);
 }
-//admin handling
-initAdmin();
 
 //change order status
-let statuses = document.querySelectorAll('.status_line')
+let statuses = document.querySelectorAll(".status_line");
 let hiddenInput = document.querySelector("#hiddenInput");
 let order = hiddenInput ? hiddenInput.value : null;
-order = JSON.parse(order)
+order = JSON.parse(order);
 
-let time = document.createElement('small')
+let time = document.createElement("small");
 
 const updateStatus = (order) => {
+  statuses.forEach((status) => {
+    status.classList.remove('current')
+    status.classList.remove("step_completed");
+  })
   let stepCompleted = true;
   statuses.forEach((status) => {
     let dataProp = status.dataset.status;
-    if(stepCompleted){
-      status.classList.add('step_completed')
+    if (stepCompleted) {
+      status.classList.add("step_completed");
     }
-    if(dataProp === order.status){
-      stepCompleted = false
-      time.innerText = moment(order.updatedAt).format('hh:mm A')
-      status.appendChild(time)
-      if(status.nextElementSibling){
-        status.nextElementSibling.classList.add('current')
+    if (dataProp === order.status) {
+      stepCompleted = false;
+      time.innerText = moment(order.updatedAt).format("hh:mm A");
+      status.appendChild(time);
+      if (status.nextElementSibling) {
+        status.nextElementSibling.classList.add("current");
       }
     }
-  })
+  });
 };
 updateStatus(order);
 
 //socket.io
-let socket = io()
+let socket = io();
 
-//join
-if(order){
-  socket.emit('join', `order_${order._id}`)
+//join 
+
+//customer room
+if (order) {
+  socket.emit("join", `order_${order._id}`);
 }
 
+//admin room
+let adminAreaPath = window.location.pathname;
+if(adminAreaPath.includes('admin')){
+  socket.emit('join', 'adminRoom')
+}
 
-//order_v8t37954028hgo8u4685895620
+//order status updatation
+socket.on("orderUpdated", (data) => {
+  const updatedOrder = { ...order };
+  updatedOrder.updatedOrder = moment().format('hh:mm A')
+  updatedOrder.status = data.status;
+  updateStatus(updatedOrder)
+  new Noty({
+    type: "success",
+    timeout: 1000,
+    progressBar: false,
+    text: "Order updated",
+  }).show();
+});
+
+//admin handling
+initAdmin(socket);

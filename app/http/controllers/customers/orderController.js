@@ -25,16 +25,20 @@ const orderControllers = () => {
         req.flash("error", "All fields are required");
         return res.redirect("/cart");
       }
-      const order = new Order({
+      let order = new Order({
         customerId: req.user._id,
         items: req.session.cart.items,
         phone: phone,
         address: address,
       });
-      await order.save();
+      order = await order.save();
       if (order) {
+        const placedOrder = await Order.populate(order, {path: 'customerId'})
         req.flash("success", "Order placed successfully");
         delete req.session.cart;
+        //emit
+        const eventEmitter = req.app.get("eventEmitter");
+        eventEmitter.emit("orderPlaced", placedOrder);
         return res.redirect("/customers/orders");
       } else {
         req.flash("error", "Something went wrong");
@@ -48,7 +52,7 @@ const orderControllers = () => {
       if (req.user._id.toString() === order.customerId.toString()) {
         return res.render("customers/singleOrder", { order: order });
       }
-      res.redirect('/')
+      res.redirect("/");
     },
   };
 };
