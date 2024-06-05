@@ -3,6 +3,9 @@ import User from "../../models/user.js";
 import bcrypt from "bcrypt";
 
 const authControllers = () => {
+  const _getRedirectUrl = (req) => {
+    return req.user.role === "admin" ? "/admin/orders" : "/customers/orders";
+  };
   return {
     login(req, res) {
       res.render("auth/login");
@@ -29,7 +32,7 @@ const authControllers = () => {
             req.flash("error", info.message);
             return next(err);
           }
-          return res.redirect("/");
+          return res.redirect(_getRedirectUrl(req));
         });
       })(req, res, next);
     },
@@ -66,10 +69,7 @@ const authControllers = () => {
           email,
           password: hashedPassword,
         });
-
         await user.save();
-
-        // TODO: Handle login
         return res.redirect("/");
       } catch (err) {
         req.flash("error", "Something went wrong");

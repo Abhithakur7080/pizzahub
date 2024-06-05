@@ -5,6 +5,7 @@ import orderControllers from "../app/http/controllers/customers/orderController.
 import AdminOrderControllers from "../app/http/controllers/admin/orderControllers.js";
 import guest from '../app/http/middlewares/guest.js'
 import auth from '../app/http/middlewares/auth.js'
+import admin from '../app/http/middlewares/admin.js'
 
 const initRoutes = (app) => {
   //default route
@@ -25,7 +26,7 @@ const initRoutes = (app) => {
   app.get('/customers/orders', auth, orderControllers().index)
   
   //Admin routes
-  app.get('/admin/orders', auth, AdminOrderControllers().index)
+  app.get('/admin/orders', admin, AdminOrderControllers().index)
 }
 
 export default initRoutes;
