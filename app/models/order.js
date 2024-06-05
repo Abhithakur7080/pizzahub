@@ -27,7 +27,7 @@ const orderSchema = new Schema(
     },
     status: {
         type: String,
-        default: "Order_Placed"
+        default: "order_placed"
     }
   },
   {

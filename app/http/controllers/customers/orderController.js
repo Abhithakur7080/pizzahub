@@ -18,7 +18,7 @@ const orderControllers = () => {
       );
       res.render("customers/orders", { orders: orders, moment: moment });
     },
-    store(req, res) {
+    async store(req, res) {
       //validate request
       const { phone, address } = req.body;
       if (!phone || !address) {
@@ -31,17 +31,24 @@ const orderControllers = () => {
         phone: phone,
         address: address,
       });
-      order
-        .save()
-        .then((result) => {
-          req.flash("success", "Order placed successfully");
-          delete req.session.cart;
-          return res.redirect("/customers/orders");
-        })
-        .catch((err) => {
-          req.flash("error", "Something went wrong");
-          return res.redirect("/cart");
-        });
+      await order.save();
+      if (order) {
+        req.flash("success", "Order placed successfully");
+        delete req.session.cart;
+        return res.redirect("/customers/orders");
+      } else {
+        req.flash("error", "Something went wrong");
+        return res.redirect("/cart");
+      }
+    },
+    async show(req, res) {
+      const order = await Order.findById(req.params.id);
+
+      //Authorize user
+      if (req.user._id.toString() === order.customerId.toString()) {
+        return res.render("customers/singleOrder", { order: order });
+      }
+      res.redirect('/')
     },
   };
 };

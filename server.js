@@ -11,6 +11,8 @@ import MongoDBStore from "connect-mongo";
 import passport from "passport";
 import passportInit from "./app/config/passport.js";
 import webRoutes from "./routes/web.js";
+import { Server } from 'socket.io';
+import Emitter from "events";
 
 // Configure dotenv
 dotenv.config();
@@ -18,6 +20,7 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+//initialize part
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -32,6 +35,7 @@ mongoose
     console.error("Database connection failed", err);
   });
 
+  //mongoose connection
 const connection = mongoose.connection;
 connection.on("error", (err) => {
   console.error("Connection error:", err);
@@ -42,6 +46,9 @@ let mongoStore = MongoDBStore.create({
   mongoUrl: url,
   collectionName: "sessions",
 });
+
+// Event emitter
+const EventEmitter = new Emitter() 
 
 // Session config
 app.use(
@@ -81,6 +88,17 @@ app.set("view engine", "ejs");
 // Routes call
 webRoutes(app);
 
-app.listen(PORT, () => {
+// server called
+const server = app.listen(PORT, () => {
   console.log(`Listening on PORT: ${PORT}`);
 });
+
+//socket.io
+const io = new Server(server);
+io.on('connection', (socket) => {
+  //join
+  socket.on('join', (orderId) => {
+    console.log(orderId);
+    socket.join(orderId)
+  })
+})
