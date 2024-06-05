@@ -85,6 +85,8 @@ if (order) {
 //admin room
 let adminAreaPath = window.location.pathname;
 if(adminAreaPath.includes('admin')){
+  //admin handling
+  initAdmin(socket);
   socket.emit('join', 'adminRoom')
 }
 
@@ -101,6 +103,3 @@ socket.on("orderUpdated", (data) => {
     text: "Order updated",
   }).show();
 });
-
-//admin handling
-initAdmin(socket);

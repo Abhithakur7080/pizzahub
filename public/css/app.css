@@ -422,3 +422,29 @@ section.status {
   font-size: 14px;
   margin-top: 8px;
 }
+
+@media (max-width: 1060px) {
+  .container {
+    max-width: 90%;
+  }
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 576px) {
+  .status_box ul li span:before {
+    font-size: 34px;
+    left: -55px;
+  }
+  .status_box ul li:before {
+    left: 5px;
+  }
+  .status_box ul li span::after {
+    left: 0;
+  }
+  .status_box ul li:nth-child(5) span::after {
+    margin-top: 10px;
+  }
+}

@@ -23,11 +23,11 @@
           <img src="/img/logo.png" alt="logo" />
         </a>
         <div>
-          <ul class="flex items-center">
-            <li class="ml-6"><a href="/">Menu</a></li>
-            <li class="ml-6"><a href="#">Offers</a></li>
+          <ul class="flex items-center ">
+            <li class="ml-3 md:ml-6"><a href="/">Menu</a></li>
             <% if(user) {%>
-            <li class="ml-6">
+            <li class="ml-3 md:ml-6"><a href="/customers/orders">Orders</a></li>
+            <li class="ml-3 md:ml-6">
               <form action="/logout" method="POST" id="logout">
                 <a onclick="document.getElementById('logout').submit()" href="#"
                   >Logout</a
@@ -35,11 +35,14 @@
               </form>
             </li>
             <% } else { %>
-            <li class="ml-6"><a href="/register">Register</a></li>
-            <li class="ml-6"><a href="/login">Login</a></li>
+            <li class="ml-3 md:ml-6"><a href="/register">Register</a></li>
+            <li class="ml-3 md:ml-6"><a href="/login">Login</a></li>
             <% } %>
-            <li class="ml-6">
-              <a href="/cart" class="flex items-center px-4 py-2 rounded-full">
+            <li class="ml-3 md:ml-6">
+              <a
+                href="/cart"
+                class="flex items-center pl-3 px-7 md:px-4 py-2 rounded-full"
+              >
                 <span id="cartCounter" class="text-white font-bold pr-2"
                   ><%= session.cart ? session.cart.totalQty : "0"%></span
                 >

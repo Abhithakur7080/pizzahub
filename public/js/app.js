@@ -31912,6 +31912,8 @@ if (order) {
 //admin room
 var adminAreaPath = window.location.pathname;
 if (adminAreaPath.includes('admin')) {
+  //admin handling
+  (0,_admin_js__WEBPACK_IMPORTED_MODULE_2__["default"])(socket);
   socket.emit('join', 'adminRoom');
 }
 
@@ -31928,9 +31930,6 @@ socket.on("orderUpdated", function (data) {
     text: "Order updated"
   }).show();
 });
-
-//admin handling
-(0,_admin_js__WEBPACK_IMPORTED_MODULE_2__["default"])(socket);
 
 /***/ })
 
