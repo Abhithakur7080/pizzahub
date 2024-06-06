@@ -59,8 +59,8 @@ app.set("view engine", "ejs");
 // Routes call
 webRoutes(app);
 app.use((req, res) => {
-  res.status(404).render('not-found/404')
-})
+  res.status(404).render("not-found/404");
+});
 
 // Server called
 const server = app.listen(PORT, () => {
