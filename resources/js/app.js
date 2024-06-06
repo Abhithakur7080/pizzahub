@@ -2,6 +2,7 @@ import axios from "axios";
 import Noty from "noty";
 import moment from "moment";
 import initAdmin from "./admin.js";
+import initStripe from './stripe.js'
 
 let addToCart = document.querySelectorAll(".add-to-cart");
 let cartCounter = document.querySelector("#cartCounter");
@@ -51,9 +52,9 @@ let time = document.createElement("small");
 
 const updateStatus = (order) => {
   statuses.forEach((status) => {
-    status.classList.remove('current')
+    status.classList.remove("current");
     status.classList.remove("step_completed");
-  })
+  });
   let stepCompleted = true;
   statuses.forEach((status) => {
     let dataProp = status.dataset.status;
@@ -72,10 +73,13 @@ const updateStatus = (order) => {
 };
 updateStatus(order);
 
+//payment type
+initStripe()
+
 //socket.io
 let socket = io();
 
-//join 
+//join
 
 //customer room
 if (order) {
@@ -84,18 +88,18 @@ if (order) {
 
 //admin room
 let adminAreaPath = window.location.pathname;
-if(adminAreaPath.includes('admin')){
+if (adminAreaPath.includes("admin")) {
   //admin handling
   initAdmin(socket);
-  socket.emit('join', 'adminRoom')
+  socket.emit("join", "adminRoom");
 }
 
 //order status updatation
 socket.on("orderUpdated", (data) => {
   const updatedOrder = { ...order };
-  updatedOrder.updatedOrder = moment().format('hh:mm A')
+  updatedOrder.updatedOrder = moment().format("hh:mm A");
   updatedOrder.status = data.status;
-  updateStatus(updatedOrder)
+  updateStatus(updatedOrder);
   new Noty({
     type: "success",
     timeout: 1000,

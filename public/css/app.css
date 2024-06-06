@@ -438,6 +438,20 @@ section.status {
   max-height: fit-content;
 }
 
+.option {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: #fff;
+  color: #232323;
+  padding: 10px;
+}
+
+.option:hover {
+  background: #fe5f1e;
+  color: #fff;
+}
+
 @media (max-width: 1060px) {
   .container {
     max-width: 90%;
@@ -462,4 +476,29 @@ section.status {
   .status_box ul li:nth-child(5) span::after {
     margin-top: 10px;
   }
+}
+.StripeElement {
+  box-sizing: border-box;
+  width: 50%;
+  height: 40px;
+  margin-left: auto;
+  margin-top: 16px;
+  padding: 10px 12px;
+  border: 1px solid #999fba;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
 }

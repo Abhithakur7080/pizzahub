@@ -23,7 +23,11 @@ const orderSchema = new Schema(
     },
     paymentType: {
         type: String,
-        default: 'COD'
+        default: 'cod'
+    },
+    paymentStatus: {
+      type: Boolean,
+      default: false
     },
     status: {
         type: String,
