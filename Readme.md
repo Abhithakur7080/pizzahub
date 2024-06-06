@@ -90,14 +90,16 @@ npm run dev
 ###### Register
 - Endpoint(GET): `/register`
 - Endpoint(POST): `/register`
+  
+![Register](https://github.com/Abhithakur7080/pizzahub/assets/119639453/f4b73e24-5ff7-4537-8c42-8c69f8a378ca)
 
-  ![Register](https://github.com/Abhithakur7080/pizzahub/assets/119639453/6f8848dd-c232-4f6f-95e3-7ded11b05eb2)
+
 
 ###### Login
 - Endpoint(GET): `/login`
 - Endpoint(POST): `/login`
-- 
-![Login](https://github.com/Abhithakur7080/pizzahub/assets/119639453/91a9f15a-fe40-43dc-ad5f-1b746aa556b7)
+  
+![Login](https://github.com/Abhithakur7080/pizzahub/assets/119639453/6f8848dd-c232-4f6f-95e3-7ded11b05eb2)
 
 <hr/>
 
@@ -110,7 +112,7 @@ npm run dev
 
 - Endpoint(GET): `/customers/orders/:id`
   
-![Screenshot 2024-06-06 200632](https://github.com/Abhithakur7080/pizzahub/assets/119639453/4699ddce-e958-4268-b98a-a6825b157cc8)
+![Single_order_info](https://github.com/Abhithakur7080/pizzahub/assets/119639453/4699ddce-e958-4268-b98a-a6825b157cc8)
 
 <hr/>
 
@@ -119,7 +121,7 @@ npm run dev
 - Endpoint(GET): `/admin/orders`
 - Endpoint(POST): `/admin/order/status`
 
-![Orders_handling_page](https://github.com/Abhithakur7080/pizzahub/assets/119639453/5e70ff96-5217-4a88-adea-c1fab687b27d)
+![Orders_handling_page](https://github.com/Abhithakur7080/pizzahub/assets/119639453/c227c1ed-770e-4238-8a42-76def1caee8a)
 
 ## Contributing
 Join us in building! Fork our repository, make changes, and submit pull requests. We value community contributions and appreciate your help in improving our project.
