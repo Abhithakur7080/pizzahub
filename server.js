@@ -3,62 +3,33 @@ import ejs from "ejs";
 import path from "path";
 import { fileURLToPath } from "url";
 import expressLayout from "express-ejs-layouts";
-import mongoose from "mongoose";
-import session from "express-session";
+import passport from "passport";
 import flash from "express-flash";
 import dotenv from "dotenv";
-import MongoDBStore from "connect-mongo";
-import passport from "passport";
 
-//connections
+// Custom imports
+import connectDB from "./app/config/db.js";
+import sessionConfig from "./app/config/session.js";
 import passportInit from "./app/config/passport.js";
 import webRoutes from "./routes/web.js";
 import setupSocket from "./app/config/socket.js";
 
-// Configure dotenv
+//dotenv configuration
 dotenv.config();
 
 // filepath config for static
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Initialize part
+// Initialize app
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Database connection
-const url = process.env.DB_URL;
-mongoose
-  .connect(url)
-  .then(() => {
-    console.log("Database connected successfully");
-  })
-  .catch((err) => {
-    console.error("Database connection failed", err);
-  });
-
-// Mongoose connection
-const connection = mongoose.connection;
-connection.on("error", (err) => {
-  console.error("Connection error:", err);
-});
-
-// Session store
-let mongoStore = MongoDBStore.create({
-  mongoUrl: url,
-  collectionName: "sessions",
-});
+connectDB();
 
 // Session config
-app.use(
-  session({
-    secret: process.env.COOKIE_SECRET,
-    resave: false,
-    store: mongoStore,
-    saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day
-  })
-);
+app.use(sessionConfig());
 
 // Passport config
 passportInit(passport);
@@ -87,6 +58,9 @@ app.set("view engine", "ejs");
 
 // Routes call
 webRoutes(app);
+app.use((req, res) => {
+  res.status(404).render('not-found/404')
+})
 
 // Server called
 const server = app.listen(PORT, () => {

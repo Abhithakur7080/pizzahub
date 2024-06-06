@@ -169,6 +169,17 @@ section.status {
   font-size: 14px;
   margin-top: 8px;
 }
+.not_found{
+  height: calc(100vh - 120px);
+}
+.not_found_box{
+  width: 85%;
+  height: 80%;
+}
+.not_found_box img{
+  max-width: 100%;
+  max-height: fit-content;
+}
 
 @media (max-width: 1060px){
   .container{
